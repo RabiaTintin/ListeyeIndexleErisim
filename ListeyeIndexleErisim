@@ -1,0 +1,105 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BagliListeler
+{
+    public class Listemiz
+    {
+        private Dugum bas;
+        private Dugum simdikidurum; 
+        private int size;
+        public class Dugum
+        {
+            public object Dugumicerik;
+            public Dugum Son;
+        }
+
+        public int Count
+        {
+            get
+            {
+                return size;
+            }
+        }
+        public Listemiz()
+        {
+            size = 0;
+            bas = null;
+        }
+
+        public void Add(object content)
+        {
+            size++;
+
+            var dugum = new Dugum()
+            {
+                Dugumicerik = content
+            };
+
+            if (bas == null)
+            {
+                bas = dugum;
+            }
+            else
+            {
+                simdikidurum.Son = dugum;
+            }
+
+            simdikidurum = dugum;
+        }
+
+        
+       public void ListNodes()
+        {
+            Dugum gecicidugum = bas;
+
+            while (gecicidugum != null)
+            {
+                Console.WriteLine(gecicidugum.Dugumicerik);
+                gecicidugum = gecicidugum.Son;
+            }
+        }
+
+
+        
+        public void indexliErisim(int index)
+        {
+            Dugum gecicidugum = bas;
+            if (index == 0)
+            {
+                Console.Write(gecicidugum.Dugumicerik);
+            }
+            else
+            {
+                for (int i = 0; i < index; i++)
+                {
+                    gecicidugum = gecicidugum.Son;
+                }
+                Console.Write(gecicidugum.Dugumicerik);
+            }
+        }
+    }
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            Listemiz listem = new Listemiz();
+            listem.Add(14);
+            listem.Add(95);
+            listem.Add(45);
+            listem.Add(11);
+            listem.Add(24);
+            listem.Add(55);
+            listem.Add(95);
+            listem.Add(21);
+            listem.ListNodes();
+            Console.Write("3. eleman: ");
+            listem.indexliErisim(2);
+            Console.ReadKey();
+        }
+    }
+}
